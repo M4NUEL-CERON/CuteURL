@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: CuteURL
+
+server:
+  port: 8080
+
+app:
+  base-url: http://localhost:8080
