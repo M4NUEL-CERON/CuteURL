@@ -16,7 +16,7 @@ public class UrlService {
         this.redis = redis;
         this.baseUrl = baseUrl;
     }
-
+ //aquí esta la logica que crea el codigo unico y guardar la clave valor en redis cloud
     public String shorten(String originalUrl) {
         String code = UUID.randomUUID().toString().substring(0, 6);
         redis.opsForValue().set("url:" + code, originalUrl);
