@@ -5,8 +5,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
-//observacion
-//logica para evitar que en los codigos se repitan en algun momento (falta imprementar)
+//observaciongit
 @Service
 public class UrlService {
 
