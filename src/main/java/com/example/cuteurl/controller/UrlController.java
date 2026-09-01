@@ -20,6 +20,7 @@ public class UrlController {
     @PostMapping("/shorten")
     public ResponseEntity<Map<String, String>> shorten(@RequestBody Map<String, String> body) {
         String originalUrl = body.get("url");
+        // rechaza peticiones sin URL para evitar guardar claves vacías en Redis
         if (originalUrl == null || originalUrl.isBlank()) {
             return ResponseEntity.badRequest().build();
         }
@@ -33,6 +34,7 @@ public class UrlController {
         if (originalUrl == null) {
             return ResponseEntity.notFound().build();
         }
+        // 302 (Found) para que los navegadores no cacheen la redirección
         return ResponseEntity.status(HttpStatus.FOUND)
                 .location(URI.create(originalUrl))
                 .build();
