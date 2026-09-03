@@ -16,10 +16,11 @@ public class UrlService {
         this.baseUrl = baseUrl;
     }
     public String shorten(String originalUrl) {
-        // 6 caracteres del UUID dan ~2 billones de combinaciones posibles
-        String code = UUID.randomUUID().toString().substring(0, 6);
-        // prefijo "url:" para agrupar las claves en Redis y evitar colisiones
-        redis.opsForValue().set("url:" + code, originalUrl);
+        String code;
+        // setIfAbsent es atómico (SETNX): reintenta si el código ya existe en Redis
+        do {
+            code = UUID.randomUUID().toString().substring(0, 6);
+        } while (Boolean.FALSE.equals(redis.opsForValue().setIfAbsent("url:" + code, originalUrl)));
         return baseUrl + "/" + code;
     }
 
