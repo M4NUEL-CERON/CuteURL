@@ -1,9 +1,17 @@
 spring:
   application:
     name: CuteURL
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      username: ${REDIS_USERNAME:default}
+      password: ${REDIS_PASSWORD}
+      ssl:
+        enabled: ${REDIS_SSL:false}
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 app:
-  base-url: http://localhost:8080
+  base-url: ${APP_BASE_URL:http://localhost:8080}
