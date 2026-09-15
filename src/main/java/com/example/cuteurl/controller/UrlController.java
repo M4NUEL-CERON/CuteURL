@@ -20,9 +20,7 @@ public class UrlController {
     @PostMapping("/shorten")
     public ResponseEntity<Map<String, String>> shorten(@RequestBody Map<String, String> body) {
         String originalUrl = body.get("url");
-        //
-        //  peticiones sin URL para evitar guardar claves vacías en Redis
-        if (originalUrl == null || originalUrl.isBlank()) {
+        if (originalUrl == null || originalUrl.isBlank() || !urlService.isValidUrl(originalUrl)) {
             return ResponseEntity.badRequest().build();
         }
         String shortUrl = urlService.shorten(originalUrl);
